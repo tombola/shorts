@@ -11,6 +11,8 @@ alias aliases="open ~/.bash_profile"
 alias sites="cd ~/Sites"
 # play a text adventure game!
 alias textadv="emacs -batch -l dunnet"
+# open hosts file for editing
+alias hosts="open /private/etc/hosts"
 # open file (in default application)
 alias o="open ."
 # open this directory (is file browser)
@@ -27,6 +29,10 @@ f() {
 cdf() {
   cd ./$(find . -name "$1") 
 	pwd
+}
+# compress a folder but leave out the OSX clutter
+mactar() {
+  tar --exclude ".DS_Store" -cvzf $1.tar.gz $1
 }
 
 # tell me when a minute has gone by
@@ -68,4 +74,23 @@ fixperm() {
       fi
     fi
   fi
+}
+
+# google calendars (requires googlecl - http://bit.ly/1w3pixt)
+# use 'quick add' to create an event
+gcal() {
+  google calendar add "$1";
+}
+
+# Friday hometime countdown
+countdown() {
+  nowhour=`date '+%H'`;
+  endhour=17;
+  hours=$endhour−$nowhour;
+  echo $hours;
+
+  MIN=10 && for i in $(seq $(($MIN*60)) -1 1); 
+  do printf "\r%02d:%02d:%02d" $((i/3600)) $(( (i/60)%60)) $((i%60)); 
+  sleep 1; 
+  done
 }

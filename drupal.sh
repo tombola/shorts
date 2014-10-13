@@ -15,7 +15,15 @@ alias dd="cd \`drush dd\`"
 alias ccperm="drush php-eval 'node_access_rebuild();'"
 # create empty contrib directories
 alias dcontrib="mkdir sites/all/themes; mkdir sites/all/modules; mkdir sites/all/modules/contrib; mkdir sites/all/themes/contrib; mkdir sites/all/modules/custom; mkdir sites/all/themes/custom"
-
+# open drupal aliases for editing
+alias .drush="open ~/.drush/aliases.drushrc.php"
+# audit drupal site
+alias site_audit="drush aa --html --bootstrap --detail > ~/Desktop/site_audit.html"
+# change the drupal theme
+dtheme() {
+  drush vset theme_default $1;
+  drush cache-clear theme-registry;
+}
 
 # drupal git checkout
 dgit() {
@@ -46,6 +54,16 @@ dis() {
    drush dis $1 -y
  fi
 }
+# download and install module/theme
+dlen () {
+  drush dl $1;
+  den $1;
+}
+# disable and uninstall module/theme
+disun () {
+  dis $1;
+  drush pm-uninstall $1;
+}
 
 # get help for module (project page)
 delp() {
@@ -56,14 +74,13 @@ delp() {
  fi
  open "http://drupal.org/project/$projectname"
 }
-
-# download starter buildkit install
-buildkit() {
- if [ -z "$1" ]; then
-   drush make "http://drupalcode.org/project/buildkit.git/blob_plain/refs/heads/7.x-2.x:/distro.make" buildkit
- else
-   drush make "http://drupalcode.org/project/buildkit.git/blob_plain/refs/heads/7.x-2.x:/distro.make" $1
- fi
+# open d.o project page for specified module/theme
+dp () {
+  open 'http://drupal.org/project/'$1;
+}
+# open d.o repo viewer for specified project
+dg () {
+  open 'http://drupalcode.org/project/'$1'.git';
 }
 
 # apply drupal style patch in current directory from url of patch
@@ -132,3 +149,13 @@ dbbak() {
   bamb;
   dbak;
 }
+
+# download starter buildkit install
+buildkit() {
+ if [ -z "$1" ]; then
+   drush make "http://drupalcode.org/project/buildkit.git/blob_plain/refs/heads/7.x-2.x:/distro.make" buildkit
+ else
+   drush make "http://drupalcode.org/project/buildkit.git/blob_plain/refs/heads/7.x-2.x:/distro.make" $1
+ fi
+}
+

@@ -30,3 +30,9 @@ grev() {
  fi
 }
 
+# add all changes, push with specified commit message
+gup() {
+  ga;
+  gc $1;
+  gush;
+}
