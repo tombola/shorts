@@ -1,0 +1,15 @@
+# Suggested usage
+# create or amend .profile or .bash_profile in your user directory to include the following:
+
+
+# change to your sftp/web1 username
+server_user="myusername"
+
+# set local username (and custom directories if required)
+backupdirectory="/Users/myusername/backups"
+script_directory="/Users/myusername/scripts"
+
+# delete or include shortcut categories as required
+. $script_directory"/tel_aliases.shortcuts"
+. $script_directory"/drupal.sh"
+. $script_directory"/shorts.sh"
