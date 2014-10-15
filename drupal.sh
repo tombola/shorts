@@ -14,11 +14,29 @@ alias dd="cd \`drush dd\`"
 # rebuild drupal access table
 alias ccperm="drush php-eval 'node_access_rebuild();'"
 # create empty contrib directories
-alias dcontrib="mkdir sites/all/themes; mkdir sites/all/modules; mkdir sites/all/modules/contrib; mkdir sites/all/themes/contrib; mkdir sites/all/modules/custom; mkdir sites/all/themes/custom"
+alias dcontrib="dd; mkdir -p sites/all/modules/contrib; mkdir -p sites/all/themes/contrib; mkdir -p sites/all/modules/custom; mkdir -p sites/all/themes/custom; mkdir -p sites/all/libraries"
 # open drupal aliases for editing
 alias .drush="open ~/.drush/aliases.drushrc.php"
 # audit drupal site
 alias site_audit="drush aa --html --bootstrap --detail > ~/Desktop/site_audit.html"
+
+dinit() {
+  drush dl drupal --drupal-project-rename="$1"
+  cd $1
+  dcontrib
+  drush dl admin_menu
+  drush dl module_filter
+  drush dl views
+  drush dl ds
+  echo ''
+  echo "Drupal project downloaded as $1 with some common mods"
+  echo ''
+}
+
+# enable/disable all site builder ui modules (eg views_ui)
+alias disui="drush pm-list --status=enabled --pipe | grep '_ui' | xargs drush pm-disable '{}' -y"
+alias denui="drush pm-list --status=disabled --pipe | grep '_ui' | xargs drush pm-enable '{}' -y"
+
 # change the drupal theme
 dtheme() {
   drush vset theme_default $1;
