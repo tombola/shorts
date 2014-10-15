@@ -17,6 +17,9 @@ alias hosts="open /private/etc/hosts"
 alias o="open ."
 # open this directory (is file browser)
 alias o..="open .."
+# bookmark directory to return to it
+bookmark() { bookmark=`pwd`; }
+back() { cd $bookmark; }
 # open specified file
 op() {
   open "$1"
