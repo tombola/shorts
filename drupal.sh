@@ -5,6 +5,7 @@ alias custom="dd; cd sites/all/modules/custom"
 
 # drush 
 alias bamb="drush bam-backup"
+alias bambrm="dd; rm sites/default/files/private/backup_migrate/manual/*; drush bam-backup"
 # report site status
 alias ds="drush status"
 # list modules
@@ -18,7 +19,7 @@ alias dcontrib="dd; mkdir -p sites/all/modules/contrib; mkdir -p sites/all/theme
 # open drupal aliases for editing
 alias .drush="open ~/.drush/aliases.drushrc.php"
 # audit drupal site
-alias site_audit="drush aa --html --bootstrap --detail > ~/Desktop/site_audit.html"
+alias site_audit="drush aa --html --bootstrap --detail > ~/Downloads/site_audit.html"
 
 dinit() {
   drush dl drupal --drupal-project-rename="$1"
@@ -51,6 +52,17 @@ dgit() {
    git clone http://git.drupal.org/project/$1.git
  fi
 }
+# drupal db backup then git add and git commit
+gab() {
+  if [ -z "$1" ]; then
+    echo "please specify commit message"
+  else
+    bamb
+    ga
+    gc $1
+  fi
+}
+
 
 # copy drupal settings.php file to sites/default for drush use in web root
 alias defset="find . -name "settings.php" -exec cp {} sites/default/settings.php \;"
