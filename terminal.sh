@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/usr/bin/bash
+
+# changes the terminal window/tab title
+bashtitle() {
+  PROMPT_COMMAND='echo -ne "\033]0;'$1'\007"'
+}
 
 # from http://stackoverflow.com/questions/7171725/open-new-terminal-tab-from-command-line-mac-os-x
 
