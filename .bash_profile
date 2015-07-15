@@ -1,5 +1,5 @@
 alias bash_profile="subl ~/.bash_profile"
-alias htdocs="cd /Applications/MAMP/htdocs"
+
 # set custom paths
 # backupdirectory="/Users/myusername/backups"
 script_directory="/Users/myusername/scripts/shorts"
