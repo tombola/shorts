@@ -19,7 +19,9 @@ script_directory="/Users/myusername/scripts"
 gitblog="~/myblog"
 
 # delete or include shortcut categories as required
-. $script_directory"/tel_aliases.shortcuts"
+. $script_directory"/shorts.sh"
 . $script_directory"/drupal.sh"
 . $script_directory"/shorts.sh"
+
+
 ````
