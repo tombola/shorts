@@ -8,6 +8,7 @@ alias gi="git init"
 alias ga="git add ."
 alias gs="git status"
 alias gb="git branch -a"
+alias unstage="git reset HEAD -- ."
 
 # cos my fingers can't reach 'p'!
 alias gush="git push"
