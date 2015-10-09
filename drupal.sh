@@ -113,8 +113,8 @@ alias rempatch="rm *.patch"
 # make a patch out of the unstaged diff of a drupal project
 diffpatch () {
   if [ -z "$1" ]; then
-    git diff --no-prefix > $(basename `pwd`).patch;
-    echo "[module_name]-[short-description]-[issue-number]-[comment-number].patch";
+    git diff --no-prefix > $(basename `pwd`)"-[short-description]-[issue-number]-[comment-number]-D7".patch;
+    echo "[module_name]-[short-description]-[issue-number]-[comment-number]-D7.patch";
   else
     # optional parameters: d.o node, comment number
     git diff --no-prefix > $(basename `pwd`)-$1-$2.patch
