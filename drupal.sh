@@ -3,7 +3,7 @@
 alias contrib="dd; cd sites/all/modules/contrib"
 alias custom="dd; cd sites/all/modules/custom"
 
-# drush 
+# drush
 alias bamb="drush bam-backup"
 alias bambrm="dd; rm sites/default/files/private/backup_migrate/manual/*; drush bam-backup"
 # report site status
@@ -37,6 +37,9 @@ dinit() {
 # enable/disable all site builder ui modules (eg views_ui)
 alias disui="drush pm-list --status=enabled --pipe | grep '_ui' | xargs drush pm-disable '{}' -y"
 alias denui="drush pm-list --status=disabled --pipe | grep '_ui' | xargs drush pm-enable '{}' -y"
+
+# get README.md from all custom modules
+alias readme='find `drush dd`/sites/all/modules/custom -name README.md -print -exec cat "{}" \;'
 
 # change the drupal theme
 dtheme() {
@@ -77,13 +80,13 @@ den() {
 }
 
 # disable a module (specify or current folder)
-dis() {
- if [ -z "$1" ]; then
-   drush dis ${PWD##*/} -y
- else
-   drush dis $1 -y
- fi
-}
+# dis() {
+#  if [ -z "$1" ]; then
+#    drush dis ${PWD##*/} -y
+#  else
+#    drush dis $1 -y
+#  fi
+# }
 # download and install module/theme
 dlen () {
   drush dl $1;
@@ -158,7 +161,7 @@ dubl () {
 # corrects file permissions so that remain writable on server (relies on tel_shortcuts)
 dbak() {
   drupalpath=`drush dd`;
-  drupal_directory=`basename $drupalpath`;  
+  drupal_directory=`basename $drupalpath`;
   # get a list of the sites folders to request all backed up
   cd $drupalpath; cd sites;
   drupal_sites=`\ls -d */`;

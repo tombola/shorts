@@ -20,6 +20,7 @@ alias o..="open .."
 # bookmark directory to return to it
 bookmark() { bookmark=`pwd`; }
 back() { cd $bookmark; }
+shortcut() { `echo $1`="cd `pwd`"; }
 # open specified file
 op() {
   open "$1"
@@ -30,7 +31,7 @@ f() {
 }
 # find folder (below this one) and navigate to it
 cdf() {
-  cd ./$(find . -name "$1") 
+  cd ./$(find . -name "$1")
 	pwd
 }
 # compress a folder but leave out the OSX clutter
@@ -62,7 +63,7 @@ fixperm() {
   read -p "Replace all matching permissions in current directory (recursively)? (y/n)" -n 1 -r
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
-    echo "" 
+    echo ""
     if [ -z "$1" ]; then
       find . -perm 444 -print -exec chmod 644 {} \;
       echo "444 (read-only) permissions replaced with 644 (owner write)"
@@ -92,8 +93,8 @@ countdown() {
   hours=$endhour−$nowhour;
   echo $hours;
 
-  MIN=10 && for i in $(seq $(($MIN*60)) -1 1); 
-  do printf "\r%02d:%02d:%02d" $((i/3600)) $(( (i/60)%60)) $((i%60)); 
-  sleep 1; 
+  MIN=10 && for i in $(seq $(($MIN*60)) -1 1);
+  do printf "\r%02d:%02d:%02d" $((i/3600)) $(( (i/60)%60)) $((i%60));
+  sleep 1;
   done
 }
