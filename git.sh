@@ -37,3 +37,26 @@ gup() {
   gc $1;
   gush;
 }
+
+gclean() {
+  read -p "remove all branches that have been merged to *master*? (y/n)" -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
+  fi
+}
+
+# get rid of merged local branches
+# gclean() {
+#   currentbranch=$(git branch --merged | grep "\*")
+#   echo $currentbranch
+#   pwd
+#   if [[ $currentbranch != '* master' ]]
+#   then
+#     echo 'not master'
+#   else
+#     echo 'master branch'
+#   fi
+#   # git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
+#   # $ git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
+# }
