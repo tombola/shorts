@@ -46,6 +46,13 @@ gclean() {
   fi
 }
 
+gfind() {
+  # Find Git commit that introduced a string in any branch
+  # git log -S $1 --source --all
+  # Find Git commit that introduced a string in current branch
+  git log -S $1 --source
+}
+
 # get rid of merged local branches
 # gclean() {
 #   currentbranch=$(git branch --merged | grep "\*")
