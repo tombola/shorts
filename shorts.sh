@@ -1,3 +1,4 @@
+#!/bin/bash
 # GENERIC functions and aliases
 
 # clear terminal window
@@ -18,9 +19,9 @@ alias o="open ."
 # open this directory (is file browser)
 alias o..="open .."
 # bookmark directory to return to it
-bookmark() { bookmark=`pwd`; }
-back() { cd $bookmark; }
-shortcut() { `echo $1`="cd `pwd`"; }
+function bookmark() { bookmark=`pwd`; }
+function back() { cd $bookmark; }
+function shortcut() { `echo $1`="cd `pwd`"; }
 # open specified file
 op() {
   open "$1"
@@ -30,17 +31,17 @@ f() {
   find . -name $1
 }
 # find folder (below this one) and navigate to it
-cdf() {
+function cdf() {
   cd ./$(find . -name "$1")
 	pwd
 }
 # compress a folder but leave out the OSX clutter
-mactar() {
+function mactar() {
   tar --exclude ".DS_Store" -cvzf $1.tar.gz $1
 }
 
 # tell me when a minute has gone by
-minute() {
+function minute() {
 		last_m=$(date '+%M');
 		now_m=$(date '+%M');
     now_t=$(date '+%T');
@@ -59,7 +60,7 @@ minute() {
 
 # usecase specific - do not use unless understood
 # fixes problematic file permissions prior to deployment
-fixperm() {
+function fixperm() {
   read -p "Replace all matching permissions in current directory (recursively)? (y/n)" -n 1 -r
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
@@ -82,12 +83,12 @@ fixperm() {
 
 # google calendars (requires googlecl - http://bit.ly/1w3pixt)
 # use 'quick add' to create an event
-gcal() {
+function gcal() {
   google calendar add "$1";
 }
 
 # Friday hometime countdown
-countdown() {
+function countdown() {
   nowhour=`date '+%H'`;
   endhour=17;
   hours=$endhour−$nowhour;
@@ -98,3 +99,6 @@ countdown() {
   sleep 1;
   done
 }
+
+alias lsal="ls -al"
+alias lsl="ls -l"

@@ -1,3 +1,4 @@
+#!/bin/bash
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles YES"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles NO"
 

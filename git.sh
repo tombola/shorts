@@ -1,3 +1,4 @@
+#!/bin/bash
 # GENERIC git functions and aliases
 
 # github
@@ -18,11 +19,11 @@ alias gull="git pull"
 alias glog="git log --graph --pretty=oneline --abbrev-commit"
 
 # git commit with short log message
-gc() {
-   git commit -m "$1"
-}
-# revert un-committed changes to repo
-grev() {
+# gc() {
+#    git commit -m "$1"
+# }
+# # revert un-committed changes to repo
+function grev() {
  read -p "Drop changes and return to the last committed state - continue? (y/n)" -n 1 -r
  if [[ $REPLY =~ ^[Yy]$ ]]
  then
@@ -32,13 +33,13 @@ grev() {
 }
 
 # add all changes, push with specified commit message
-gup() {
+function gup() {
   ga;
   gc $1;
   gush;
 }
 
-gclean() {
+function gclean() {
   read -p "remove all branches that have been merged to *master*? (y/n)" -n 1 -r
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
@@ -46,7 +47,7 @@ gclean() {
   fi
 }
 
-gfind() {
+function gfind() {
   # Find Git commit that introduced a string in any branch
   # git log -S $1 --source --all
   # Find Git commit that introduced a string in current branch
@@ -54,16 +55,16 @@ gfind() {
 }
 
 # get rid of merged local branches
-# gclean() {
-#   currentbranch=$(git branch --merged | grep "\*")
-#   echo $currentbranch
-#   pwd
-#   if [[ $currentbranch != '* master' ]]
-#   then
-#     echo 'not master'
-#   else
-#     echo 'master branch'
-#   fi
-#   # git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
-#   # $ git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
-# }
+function gclean() {
+  currentbranch=$(git branch --merged | grep "\*")
+  echo $currentbranch
+  pwd
+  if [[ $currentbranch != '* master' ]]
+  then
+    echo 'not master'
+  else
+    echo 'master branch'
+  fi
+  # git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
+  # $ git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
+}

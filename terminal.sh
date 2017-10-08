@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # changes the terminal window/tab title
-bashtitle() {
+function bashtitle() {
   PROMPT_COMMAND='echo -ne "\033]0;'$1'\007"'
 }
 

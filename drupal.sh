@@ -1,3 +1,4 @@
+#!/bin/bash
 # GENERIC drupal functions and aliases
 
 alias contrib="dd; cd sites/all/modules/contrib"
@@ -42,13 +43,13 @@ alias denui="drush pm-list --status=disabled --pipe | grep '_ui' | xargs drush p
 alias readme='find `drush dd`/sites/all/modules/custom -name README.md -print -exec cat "{}" \;'
 
 # change the drupal theme
-dtheme() {
+function dtheme() {
   drush vset theme_default $1;
   drush cache-clear theme-registry;
 }
 
 # drupal git checkout
-dgit() {
+function dgit() {
  if [ -z "$1" ]; then
    echo "please specify a drupal project to git from d.o"
  else
@@ -56,7 +57,7 @@ dgit() {
  fi
 }
 # drupal db backup then git add and git commit
-gab() {
+function gab() {
   if [ -z "$1" ]; then
     echo "please specify commit message"
   else
@@ -71,7 +72,7 @@ gab() {
 alias defset="find . -name "settings.php" -exec cp {} sites/default/settings.php \;"
 
 # enable a module (specify or current folder)
-den() {
+function den() {
  if [ -z "$1" ]; then
    drush en ${PWD##*/} -y
  else
@@ -88,18 +89,18 @@ den() {
 #  fi
 # }
 # download and install module/theme
-dlen () {
+function dlen () {
   drush dl $1;
   den $1;
 }
 # disable and uninstall module/theme
-disun () {
+function disun () {
   dis $1;
   drush pm-uninstall $1;
 }
 
 # get help for module (project page)
-delp() {
+function delp() {
  if [ -z "$1" ]; then
    projectname=${PWD##*/}
  else
@@ -108,16 +109,16 @@ delp() {
  open "http://drupal.org/project/$projectname"
 }
 # open d.o project page for specified module/theme
-dp () {
+function dp () {
   open 'http://drupal.org/project/'$1;
 }
 # open d.o repo viewer for specified project
-dg () {
+function dg () {
   open 'http://drupalcode.org/project/'$1'.git';
 }
 
 # apply drupal style patch in current directory from url of patch
-dopatch() {
+function dopatch() {
   curl -OL $1;
   patchfile=$(basename $1);
   patch -p1 < $patchfile;
@@ -126,7 +127,7 @@ alias revpatch="patch -p1 -R < *.patch"
 alias rempatch="rm *.patch"
 
 # make a patch out of the unstaged diff of a drupal project
-diffpatch () {
+function diffpatch () {
   if [ -z "$1" ]; then
     git diff --no-prefix > $(basename `pwd`)"-[short-description]-[issue-number]-[comment-number]-D7".patch;
     echo "[module_name]-[short-description]-[issue-number]-[comment-number]-D7.patch";
@@ -137,14 +138,14 @@ diffpatch () {
 }
 
 # get a password hash to replace password in db to access another account
-md5_hash() {
+function md5_hash() {
     echo -n "a" | md5 -s "$1"
 }
 
 # flush blocked users table (http://drupal.org/node/1023440)
 #alias dunblock="drush php-eval 'db_query(\"DELETE FROM `flood`\");'"
 
-dubl () {
+function dubl () {
  echo "open sublime project for this drupal project";
  dest=$(pwd);
  dd;
@@ -159,7 +160,7 @@ dubl () {
 # backup a drupal site to a correctly named backup location
 # excludes git files and osx .DS_Store files
 # corrects file permissions so that remain writable on server (relies on tel_shortcuts)
-dbak() {
+function dbak() {
   drupalpath=`drush dd`;
   drupal_directory=`basename $drupalpath`;
   # get a list of the sites folders to request all backed up
@@ -178,13 +179,13 @@ dbak() {
 }
 
 # back up site as above but use backup migrate to get db first
-dbbak() {
+function dbbak() {
   bamb;
   dbak;
 }
 
 # download starter buildkit install
-buildkit() {
+function buildkit() {
  if [ -z "$1" ]; then
    drush make "http://drupalcode.org/project/buildkit.git/blob_plain/refs/heads/7.x-2.x:/distro.make" buildkit
  else

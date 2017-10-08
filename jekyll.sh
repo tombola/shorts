@@ -1,3 +1,4 @@
+#!/bin/bash
 # define github repo path in .bash_profile
 
 # navigate to
@@ -10,7 +11,7 @@ alias blogserve="cd $gitblog; open http://0.0.0.0:4000; bundle exec jekyll serve
 alias blogdate="date +\"%Y-%m-%d-T%H:%m:%S+00:00\""
 alias octodate="date +\"%Y-%m-%d-T%H:%m:%S+00:00\""
 
-newpost() {
+function newpost() {
   echo "new post"
   echo "Title:";
   read blogtitle;
