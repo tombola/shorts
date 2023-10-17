@@ -47,24 +47,24 @@ function gclean() {
   fi
 }
 
-function gfind() {
-  # Find Git commit that introduced a string in any branch
-  # git log -S $1 --source --all
-  # Find Git commit that introduced a string in current branch
-  git log -S $1 --source
-}
+# function gfind() {
+#   # Find Git commit that introduced a string in any branch
+#   # git log -S $1 --source --all
+#   # Find Git commit that introduced a string in current branch
+#   git log -S $1 --source
+# }
 
-# get rid of merged local branches
-function gclean() {
-  currentbranch=$(git branch --merged | grep "\*")
-  echo $currentbranch
-  pwd
-  if [[ $currentbranch != '* master' ]]
-  then
-    echo 'not master'
-  else
-    echo 'master branch'
-  fi
-  # git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
-  # $ git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
-}
+# # get rid of merged local branches
+# function gclean() {
+#   currentbranch=$(git branch --merged | grep "\*")
+#   echo $currentbranch
+#   pwd
+#   if [[ $currentbranch != '* master' ]]
+#   then
+#     echo 'not master'
+#   else
+#     echo 'master branch'
+#   fi
+#   # git branch --merged master | grep -v "\* master" | xargs -n 1 git branch -d
+#   # $ git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
+# }
